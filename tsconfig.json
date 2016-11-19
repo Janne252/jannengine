@@ -4,9 +4,9 @@
         "target": "es5",
         "module":"amd",
         "sourceMap": true,
-        "outDir": "./js/out",
-        "rootDir": "./js/src",
+        "outDir": "./js",
+        "rootDir": "./src",
         "watch": true,
-        "outFile": "./js/out/combined.js"
+        "outFile": "./js/combined.js"
     }
 }
