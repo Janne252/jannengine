@@ -132,7 +132,7 @@ let enemyDied = (deadEnemy:Enemy, spawnNew:boolean = true) =>
             }
         }
         while(tooClose);
-
+        console.log('Spawned after ' + attempts + ' attempts.');
         let newEnemy = new Enemy(enemyPos.x, enemyPos.y, engine.bounds, 100);
         newEnemy.projectileDamage = 1;
         newEnemy.fillStyle = new Color(150, 0, 0, 1);
