@@ -124,7 +124,7 @@ export default class RegularPolygon extends Renderable implements IRenderable, I
     /**
      * Inspects if a position is inside the regular polygon.
      * @param position The position to check against.
-     * @returns Returns true if the position is inside the RegularPolygon.
+     * Returns true if the position is inside the RegularPolygon.
      */
     public intersects(position:Vector2D):boolean
     {

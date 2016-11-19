@@ -73,7 +73,7 @@ export default class Vector2D
     /**
      * Adds a vector to a vector (x + x, y + y).
      * @param vector The vector to add.
-     * @returns Returns the result vector.
+     * Returns the result vector.
      */
     public add(vector: Vector2D): Vector2D
     {
@@ -82,7 +82,7 @@ export default class Vector2D
     /**
      * Subtracts a vector from the vector (x - x, y - y).
      * @param vector The vector to subtract.
-     * @returns Returns the result vector.
+     * Returns the result vector.
      */
     public subtract(vector: Vector2D):Vector2D
     {
@@ -91,7 +91,7 @@ export default class Vector2D
     /**
      * Mulitplies the vector with a mulitplier.
      * @param multiplier The multiplier.
-     * @returns Returns the result vector.
+     * Returns the result vector.
      */
     public multiply(multiplier:number):Vector2D
     {
@@ -110,7 +110,7 @@ export default class Vector2D
      * Linerry interpolates the vector x and y components towards a vector by a step percentage.
      * @param vector The vector to lerp towards.
      * @param stepPercentage The step percentage.
-     * @returns Returns the result vector.
+     * Returns the result vector.
      */
     public lerp(vector:Vector2D, stepPercentage:number):Vector2D
     {
@@ -123,7 +123,7 @@ export default class Vector2D
      * Returns a copy of the current vector that is moved towards an angle by an offset.
      * @param offset The distance to move the vector.
      * @param angle The angle in radians.
-     * @returns Returns the result vector.
+     * Returns the result vector.
      */
     public getOffsetTowardsAngle(offset:number, angle:number):Vector2D
     {
@@ -132,14 +132,14 @@ export default class Vector2D
     /**
      * Returns the angle in radians towards a vector.
      * @param vector The vector the angle is measured against.
-     * @returns number The result angle in radians.
+     * Returns number The result angle in radians.
      */
     public getAngleTowardsVector(vector:Vector2D):number
     /**
      * Returns the angle in radians towards a vector.
      * @param x The x component of the target vector.
      * @param y The y component of the target vector.
-     * @returns number The result angle in radians.
+     * Returns number The result angle in radians.
      */
     public getAngleTowardsVector(x:number, y:number):number
     public getAngleTowardsVector(xOrVector: number|Vector2D, y?:number):number
@@ -154,7 +154,7 @@ export default class Vector2D
      * @param offset The distance to move the vector.
      * @param vector The vector to move towads.
      * @param overshoot Wheter or not going past the target vector is allowed.
-     * @returns The result vector.
+     * Returns The result vector.
      */
     public getOffsetTowardsVector(offset:number, vector:Vector2D, overshoot:boolean = true):Vector2D
     {
@@ -177,14 +177,14 @@ export default class Vector2D
     /**
      * Measures the distance to a vector.
      * @param vector The vector to measure the distance to.
-     * @returns The distance.
+     * Returns The distance.
      */
     public distanceTo(vector:Vector2D):number
     /**
      * Measures the distance to a vector (x and y components).
      * @param x The x component of the target vector.
      * @param y The y component of the target vector.
-     * @returns The distance.
+     * Returns The distance.
      */
     public distanceTo(x:number, y:number)
     public distanceTo(xOrVector: number|Vector2D, y?:number)
@@ -196,14 +196,14 @@ export default class Vector2D
     }
     /**
      * Calculates the length of the vector.
-     * @returns Returns the length of the vector.
+     * Returns the length of the vector.
      */
     public length():number
     {
         return Math.sqrt(this.x * this.x + this.y * this.y);
     }
     /**
-     * @returns Returns the normalized vector of the vector.
+     * Returns the normalized vector of the vector.
      */
     public normalized():Vector2D
     {
@@ -214,7 +214,7 @@ export default class Vector2D
     /**
      * Checks if a vector has the same x and y components as another vector.
      * @param vector The vector to check against.
-     * @returns Returns true if the vectors have the same components.
+     * Returns true if the vectors have the same components.
      */
     public equals(vector:Vector2D):boolean
     {
@@ -229,7 +229,7 @@ export default class Vector2D
     }
     /**
      * Converts the vector to a string representation.
-     * @returns Returns the string.
+     * Returns the string.
      */
     public toString():string
     {

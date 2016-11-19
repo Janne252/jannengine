@@ -98,7 +98,7 @@ export default class Polygon extends Renderable implements IRenderable
     /**
      * Gets the vertex at the specified index.
      * @param index The index of the verted to get.
-     * @returns Returns the vertex.
+     * Returns the vertex.
      */
     public vertexAt(index:number):Vector2D
     {
@@ -107,7 +107,7 @@ export default class Polygon extends Renderable implements IRenderable
     /**
      * Checks if a position is inside the Polygon.
      * @param vector The positon to check against.
-     * @returns Returns true if the position is inside the Polygon.
+     * Returns true if the position is inside the Polygon.
      */
     public intersects(vector:Vector2D):boolean
     {
@@ -171,7 +171,7 @@ export default class Polygon extends Renderable implements IRenderable
      * Checks if a position is inside a Polygon formed of an array of vertices (Vector2D[]).
      * @param vertices The positions to from the Polygon from.
      * @param vector The positon to check against.
-     * @returns Returns true if the position is inside the Polygon.
+     * Returns true if the position is inside the Polygon.
      */
     public static intersects(vertices:Vector2D[], vector:Vector2D):boolean
     {

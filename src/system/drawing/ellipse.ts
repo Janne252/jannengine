@@ -50,7 +50,7 @@ export default class Ellipse extends Renderable implements IRenderable
     /**
      * Checks if a position is in the ellipse. Does not support "unfull" ellipses (endAngle - startAngle != Math.PI * 2)
      * @param position The position to check.
-     * @returns Returns true if the position is inside the ellipse.
+     * Returns true if the position is inside the ellipse.
      */
     public intersects(position:Vector2D):boolean
     {

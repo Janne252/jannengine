@@ -181,7 +181,7 @@ export abstract class Renderable implements IRenderable
     /**
      * Checks if a position is inside of the object.
      * @param vector The position to check.
-     * @returns Returns true if the position is inside the object.
+     * Returns true if the position is inside the object.
      */
     public intersects(vector:Vector2D):boolean
     {
@@ -222,7 +222,7 @@ export interface IRenderable
     /**
      * Checks if a position is inside of the object.
      * @param vector The position to check.
-     * @returns Returns true if the position is inside the object.
+     * Returns true if the position is inside the object.
      */
     intersects(position:Vector2D):boolean;
 }

@@ -95,7 +95,7 @@ export default class Sound
 
     /**
      * Plays the sound if the maximum number of channels is not reached.
-     * @returns Returns true if the sound was played.
+     * Returns true if the sound was played.
      */
     public play():boolean
     {

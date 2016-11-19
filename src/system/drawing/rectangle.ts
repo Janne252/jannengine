@@ -182,7 +182,7 @@ export default class Rectangle extends Renderable implements IRenderable, IRotat
     /**
      * Checks if a position is inside of the Rectangle.
      * @param vector The position to check.
-     * @returns Returns true if the position is inside the Rectangle.
+     * Returns true if the position is inside the Rectangle.
      */    
     public intersects(vector:Vector2D):boolean
     {
@@ -192,7 +192,7 @@ export default class Rectangle extends Renderable implements IRenderable, IRotat
     /**
      * Returns a random position inside the rectangle. Does not take rotation into account.
      * @param padding Padding used to prevent results near the edges.
-     * @returns Returns the result position vector.
+     * Returns the result position vector.
      */
     public getRandomPosition(padding?:IPadding):Vector2D
     {
@@ -201,7 +201,7 @@ export default class Rectangle extends Renderable implements IRenderable, IRotat
 
     /**
      * Converts the Rectangle to a string representation, e.g. ([0, 0], [100, 0], [100, 100], [0, 100])
-     * @returns Returns the string.
+     * Returns the string.
      */
     public toString():string
     {
