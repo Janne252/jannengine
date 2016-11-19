@@ -5,7 +5,7 @@ var __mainpackage = 'spaceWars';
 var __combined = true;
 
 requirejs.config({
-    baseUrl: 'js',
+    baseUrl: 'js/out',
     urlArgs: function(id, url)
     {
         if (__debug)

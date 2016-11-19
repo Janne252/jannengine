@@ -7,6 +7,6 @@
         "outDir": "./js",
         "rootDir": "./src",
         "watch": true,
-        "outFile": "./js/combined.js"
+        "outFile": "./js/out/combined.js"
     }
 }
