@@ -114,7 +114,25 @@ let enemyDied = (deadEnemy:Enemy, spawnNew:boolean = true) =>
 
     if (spawnNew)
     {
-        let enemyPos = engine.getRandomPosition(new Padding(100));
+        let enemyPos:Vector2D;
+        let tooClose:boolean = true;
+        let attempts = 0;
+        let maxAttempts = 1000;
+
+        do
+        {
+            enemyPos = engine.getRandomPosition(new Padding(100));
+            tooClose = enemyPos.distanceTo(player.position) <= engine.width * 0.33;
+            attempts++;
+
+            if (attempts == maxAttempts)
+            {
+                // GTFO
+                return;
+            }
+        }
+        while(tooClose);
+
         let newEnemy = new Enemy(enemyPos.x, enemyPos.y, engine.bounds, 100);
         newEnemy.projectileDamage = 1;
         newEnemy.fillStyle = new Color(150, 0, 0, 1);
@@ -264,5 +282,5 @@ window.setInterval(() =>
         enemyDied(null);
     }
     //player.shoot();
-}, 5000);
+}, 3000);
 engine.run();
