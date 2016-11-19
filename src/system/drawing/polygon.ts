@@ -6,6 +6,7 @@ import Padding, {IPadding} from './padding';
 import {min, max} from '../helpers/math';
 import Random from '../random';
 import Range from './range';
+import XYRange from './xyRange';
 
 /**
  * Represents a polygon with n number of vertices.
@@ -13,26 +14,44 @@ import Range from './range';
 export default class Polygon extends Renderable implements IRenderable
 {
     private _vertices:Vector2D[] = [];
-    private _minX:number = 0;
-    private _maxX:number = 0;
-    private _minY:number = 0;
-    private _maxY:number = 0;
+    private _xyRange:XYRange;
 
+    public get xRange():Range
+    {
+        return this._xyRange.xRange;
+    }   
+    
+     public get yRange():Range
+    {
+        return this._xyRange.yRange;
+    }
+    /**
+     * Smallest x value of the Polygon.
+     */
     public get minX():number
     {
-        return this._minX;
-    }    
+        return this._xyRange.xRange.min;
+    }  
+    /**
+     * Largets x value of the Polygon.
+     */ 
     public get maxX():number
     {
-        return this._maxX;
-    }    
+        return this._xyRange.xRange.max;
+    }  
+    /**
+     * Smallest y value of the Polygon.
+     */
     public get minY():number
     {
-        return this._minY;
+        return this._xyRange.yRange.min;
     }
+    /**
+     * Largets y value of the Polygon.
+     */ 
     public get maxY():number
     {
-        return this._maxY;
+        return this._xyRange.yRange.max;
     }
     /**
      * The current vertices of the Polygon.
@@ -56,15 +75,15 @@ export default class Polygon extends Renderable implements IRenderable
     constructor(fillStyle:Color = Color.black, strokeStyle:Color = Color.white)
     {
         super(null, null, fillStyle, strokeStyle);
+        this._xyRange = new XYRange(0, 0, 0, 0);
+        this.update();
     }
-
+    /**
+     * Updates the Polygon's internal properties.
+     */
     public update():void
     {
-        this._minX = min<Vector2D>(vector => vector.x, this._vertices);
-        this._maxX = max<Vector2D>(vector => vector.x, this._vertices);        
-        
-        this._minY = min<Vector2D>(vector => vector.y, this._vertices);
-        this._maxY = max<Vector2D>(vector => vector.y, this._vertices);
+        this._xyRange.recalculate(this._vertices);
     }
     /**
      * Renders the Polygon.
@@ -122,10 +141,9 @@ export default class Polygon extends Renderable implements IRenderable
      */
     public getRandomPosition(padding?:IPadding):Vector2D
     {
-        let xRange = new Range(padding !== undefined ? this._minX + padding.left : this._minX, padding !== undefined ? this._maxX - padding.right : this._maxX);
-        let yRange = new Range(padding !== undefined ? this._minY + padding.top : this._minY, padding !== undefined ? this._maxY - padding.bottom : this._maxY);
+        let xYRange = this._xyRange.withPadding(padding);
 
-        return Polygon._getRandomPosition(xRange, yRange, this._vertices, padding);
+        return Polygon._getRandomPosition(xYRange.xRange, xYRange.yRange, this._vertices, padding);
     }
 
     public toString():string
@@ -203,13 +221,10 @@ export default class Polygon extends Renderable implements IRenderable
      */
     public static getRandomPosition(vertices:Vector2D[], padding?: IPadding):Vector2D
     {
-        let minX = min<Vector2D>(vector => vector.x, vertices);
-        let maxX = max<Vector2D>(vector => vector.x, vertices);        
-        let minY = min<Vector2D>(vector => vector.y, vertices);
-        let maxY = max<Vector2D>(vector => vector.y, vertices);
+        let xyRange = XYRange.from(vertices);
 
-        let xRange = new Range(padding !== undefined ? minX + padding.left : minX, padding !== undefined ? maxX - padding.right : maxX);
-        let yRange = new Range(padding !== undefined ? minY + padding.top : minY, padding !== undefined ? maxY - padding.bottom : maxY);
+        let xRange = new Range(padding !== undefined ? xyRange.minX + padding.left : xyRange.minX, padding !== undefined ? xyRange.maxX - padding.right : xyRange.maxX);
+        let yRange = new Range(padding !== undefined ? xyRange.minY + padding.top : xyRange.minY, padding !== undefined ? xyRange.maxY - padding.bottom : xyRange.maxY);
 
         return Polygon._getRandomPosition(xRange, yRange, vertices, padding);
     }

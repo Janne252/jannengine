@@ -4,7 +4,7 @@ import {lerp} from '../helpers/math';
 /**
  * Represents a 2-dimensional vector that has the components x and y.
  */
-export default class Vector2D
+export default class Vector2D implements IVector2D
 {
     private _x:number = 0;
     private _y:number = 0;
@@ -259,4 +259,10 @@ export interface Vector2DOnChangedCallback
      * @param oldY The previous y component value before the change.
      */
     (sender:Vector2D, oldX:number, oldY:number):void;
+}
+
+export interface IVector2D
+{
+    x:number;
+    y:number;
 }
