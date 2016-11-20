@@ -1,6 +1,13 @@
 import EventHandler from '../component/event/eventHandler';
 import {lerp} from '../helpers/math';
 
+
+export interface IVector2D
+{
+    x:number;
+    y:number;
+}
+
 /**
  * Represents a 2-dimensional vector that has the components x and y.
  */
@@ -259,10 +266,4 @@ export interface Vector2DOnChangedCallback
      * @param oldY The previous y component value before the change.
      */
     (sender:Vector2D, oldX:number, oldY:number):void;
-}
-
-export interface IVector2D
-{
-    x:number;
-    y:number;
 }
