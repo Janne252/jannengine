@@ -1,5 +1,5 @@
 import EventHandler from '../event/eventHandler';
-import {min, max} from '../helpers/math';
+import {min, max} from '../../helpers/math';
 
 /**
  * Represents a range constisting of minimum and maximum values.
@@ -42,7 +42,8 @@ export default class Range
     }
     /**
      * Maximum value of the Range.
-     */    public set max(value:number)
+     */    
+    public set max(value:number)
     {
         let previosMax = this._max;
         this._max = value;

@@ -1,10 +1,16 @@
-import {Renderable, IRenderable} from './renderable';
-import Vector2D from './vector2d';
-import Size from './size';
-import Color from './color';
+import {RotatableRenderable} from './rotatableRenderable';
+import Vector2D from '../component/vector2d';
+import Size from '../component/size';
+import Color from '../component/color';
 
-export default class Text extends Renderable implements IRenderable
+/**
+ * Represents a renderable text label.
+ */
+export default class Text extends RotatableRenderable
 {
+    /**
+     * The actual string value that is rendered.
+     */
     public text:string = '';
     public font:string = '16px Monospace';
 

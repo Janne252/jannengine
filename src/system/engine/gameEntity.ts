@@ -1,5 +1,5 @@
 
-import Vector2D from '../system/drawing/vector2d';
+import Vector2D from '../component/vector2d';
 
 export default class GameEntity
 {

@@ -1,19 +1,37 @@
+/**
+ * Converts degrees (°) to radians.
+ * @param degrees The degrees to convert.
+ * Returns the result radians.
+ */
 export function radians(degrees:number):number
 {
     return degrees * Math.PI / 180;
 }
-
+/**
+ * Converts radians (c) to degrees.
+ * @param radians The radians to convert.
+ * Returns the result degrees.
+ */
 export function degrees(radians:number):number
 {
     return radians * 180 / Math.PI;
 }
-
+/**
+ * Normalizes radians to the standard range (-Math.PI - Math.PI).
+ * @param radians The radians to normalize.
+ * Returns the normalized radians.
+ */
 export function normalizeRadians(radians:number):number
 {
     return Math.atan2(Math.sin(radians), Math.cos(radians));
 }
-
-
+/**
+ * Rotates an angle (radians) towards an angle (radians) by the shortest way.
+ * @param source The source angle (radians) to rotate.
+ * @param target The target angle (radians) to rotate to.
+ * @param step How many radians to advance towards the target rotation.
+ * Returns the result angle (radians).
+ */
 export function rotateTowards(source, target, step)
 {       
     var diff = Math.abs(source - target);
@@ -51,18 +69,37 @@ export function rotateTowards(source, target, step)
     
     return result;
 }
-
+/**
+ * Maps a value from a range to another range linearly.
+ * @param value The value to map.
+ * @param fromRangeMin The source range minimum (beginning) value.
+ * @param fromRangeMax The source range maximum (end) value.
+ * @param toRangeMin The target range minimum (beginning) value.
+ * @param toRangeMax The target range maximum (end) value.
+ * Returns the result mapped value.
+ */
 export function map(value:number, fromRangeMin:number, fromRangeMax:number, toRangeMin:number, toRangeMax:number):number
 {
     return (value - fromRangeMin) * (toRangeMax - toRangeMin) / (fromRangeMax - fromRangeMin) + toRangeMin;
 }
-
-export function lerp(startValue:number, targetValue:number, stepPercentage:number):number
+/**
+ * Linearly interpolates a value towards a target value by a step percentage.
+ * @param value The value to interpolate.
+ * @param targetValue The value to interpolate towards.
+ * @param stepPercentage How big chunk of the difference is taken.
+ * Returns the linearly interpolated result value.
+ */
+export function lerp(value:number, targetValue:number, stepPercentage:number):number
 {
-
-    return startValue * (1 - stepPercentage) + targetValue * stepPercentage;
+    return value * (1 - stepPercentage) + targetValue * stepPercentage;
 }
-
+/**
+ * Clamps a value by limiting it between minimum and maximum values.
+ * @param value The value to clamp.
+ * @param min The miminum value.
+ * @param max The maximum value.
+ * Returns min if the value is less than min. Returns max if the value is larger than max. Returns the same value otherwise.
+ */
 export function clamp(value:number, min:number, max:number)
 {
     if (value < min)
@@ -78,23 +115,44 @@ export function clamp(value:number, min:number, max:number)
         return value;
     }
 }
-
+/**
+ * Calculates the hypotenuse of a right triangle based on the 2 shorter vertices. 
+ * @param a Vertice a length.
+ * @param b Vertice b length.
+ * Returns the length of the hypotenuse.
+ */
 export function hypot(a:number, b:number)
 {
     return Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
 }
-
+/**
+ * Returns the smallest value occurring in the collection.
+ * @param selector Selector used to get the comparable number value.
+ * @param items Source items to iterate over.
+ * Returns the smallest occurring number value.
+ */
 export function min<T>(selector:(o:T) => number, items:T[]):number
 {
-    return minOrMax(true, selector, items);
+    return _minOrMax(true, selector, items);
 }
-
+/**
+ * Returns the largest value occurring in the collection.
+ * @param selector Selector used to get the comparable number value.
+ * @param items Source items to iterate over.
+ * Returns the largest occurring number value.
+ */
 export function max<T>(selector:(o:T) => number, items:T[]):number
 {
-    return minOrMax(false, selector, items);
+    return _minOrMax(false, selector, items);
 }
-
-function minOrMax<T>(min:boolean, selector:(o:T) => number, items:T[]):number
+/**
+ * Inner function used as the repeating part for min and max functions.
+ * @param min If true, smallest value is returned. If set to false, largest.
+ * @param selector Selector used to get the comparable number value.
+ * @param items Source items to iterate over.
+ * Returns the smallest or the largest value.
+ */
+function _minOrMax<T>(min:boolean, selector:(o:T) => number, items:T[]):number
 {
     let result = min ? Number.MAX_VALUE : Number.MIN_VALUE;
     let item:T;

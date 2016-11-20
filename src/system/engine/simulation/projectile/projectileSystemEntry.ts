@@ -1,26 +1,44 @@
-import Vector2D from '../../drawing/vector2D';
-import {IProjectile, IProjectileOwner, IProjectileTarget} from 'projectileSystem';
-import ProjectileSystem from 'projectileSystem';
-import ProjectileSystemResult from 'projectileSystemResult';
+import Vector2D from '../../../component/vector2D';
+import {IProjectile, IProjectileOwner, IProjectileTarget} from './projectileSystem';
+import ProjectileSystem from './projectileSystem';
+import ProjectileSystemResult from './projectileSystemResult';
 
+/**
+ * Represents a ProjectileSystem entry.
+ */
 export default class ProjectileSystemEntry
 {
     private _owner:IProjectileOwner;
     private _targets:IProjectileTarget[];
 
+    /**
+     * The owner of the ProjectileSystemEntry.
+     */
     public get owner():IProjectileOwner
     {
         return this._owner;
     }
-
+    /**
+     * Creates a new instance of ProjectileSystemEntry.
+     * @param owner The owner of the projectiles.
+     * @param target The target of the projectiles.
+     */
     constructor(owner:IProjectileOwner, target:IProjectileTarget)
+    /**
+     * Creates a new instance of ProjectileSystemEntry.
+     * @param owner The owner of the projectiles.
+     * @param targets The targets of the projectiles.
+     */
     constructor(owner:IProjectileOwner, targets:IProjectileTarget[])
     constructor(owner:IProjectileOwner, targets:IProjectileTarget[]|IProjectileTarget)
     {
         this._owner = owner;
         this._targets = (targets instanceof Array ? targets : [targets]);
     }
-
+    /**
+     * Updates the ProjectileSystemEntry.
+     * Returns the results.
+     */
     public update(system:ProjectileSystem):ProjectileSystemResult[]
     {
         let result:ProjectileSystemResult[] = [];

@@ -1,13 +1,13 @@
-import GameEngine from './engine/gameEngine';
+import GameEngine from './system/engine/gameEngine';
 import Rectagle from './system/drawing/rectangle';
 import Circle from './system/drawing/circle';
 import Ellipse from './system/drawing/ellipse';
-import Line from './system/drawing/line';
+import Line from './system/drawing/line/line';
 import RegularPolygon from './system/drawing/regularPolygon';
 import Star from './system/drawing/star';
 import Text from './system/drawing/text';
-import Color from './system/drawing/color';
-import Vector2D from './system/drawing/vector2d';
+import Color from './system/component/color';
+import Vector2D from './system/component/vector2d';
 import {lerp, map} from './system/helpers/math';
 
 import {Animal, Horse} from './system/testClass';

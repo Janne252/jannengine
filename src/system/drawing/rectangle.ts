@@ -1,16 +1,18 @@
-import {Renderable, IRenderable, IRotatable} from './renderable';
-import Random from '../random';
-import Vector2D from './vector2d';
-import Size from './size';
-import Color from './color';
+/// <references path='renderable/baseRenderable' />
+
+import {BaseRenderable, IRotatable} from './baseRenderable';
+import Random from '../component/random';
+import Vector2D from '../component/vector2d';
+import Size from '../component/size';
+import Color from '../component/color';
 import Polygon from './polygon';
-import IPadding from './padding';
+import IPadding from '../component/padding';
 import {hypot, normalizeRadians, degrees} from '../helpers/math';
 
 /**
  * Represents a standard rectangle that has a position, width, and height. Can be rotated.
  */
-export default class Rectangle extends Renderable implements IRenderable, IRotatable
+export default class Rectangle extends BaseRenderable implements IRotatable
 {
     private _size:Size = new Size(0, 0);
     private _rotation:number = 0;

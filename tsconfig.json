@@ -4,7 +4,8 @@
         "target": "es5",
         "module":"amd",
         "sourceMap": true,
-        "outDir": "./js",
+        "removeComments": true,
+        "outDir": "./js/out",
         "rootDir": "./src",
         "watch": true,
         "outFile": "./js/out/combined.js"

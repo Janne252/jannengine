@@ -1,12 +1,12 @@
-import {Renderable, IRenderable, IRotatable} from './renderable';
-import Vector2D from './vector2d';
+import {BaseRenderable, IRotatable} from './baseRenderable';
+import Vector2D from '../component/vector2d';
 import Polygon from './polygon';
-import Color from './color';
+import Color from '../component/color';
 
 /**
  * Respresents a symmetrical polygon (triangle, square, pentagon, hexacon, heptagon, octagon, etc.).
  */
-export default class RegularPolygon extends Renderable implements IRenderable, IRotatable
+export default class RegularPolygon extends BaseRenderable implements IRotatable
 {
     private _rotation:number = 0;
     private _radius:number = 0;

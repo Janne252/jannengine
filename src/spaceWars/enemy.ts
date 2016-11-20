@@ -1,11 +1,11 @@
 
 import Player from '../spaceWars/player';
-import Vector2D from '../system/drawing/vector2d';
+import Vector2D from '../system/component/vector2d';
 import Circle from '../system/drawing/circle';
-import Color from '../system/drawing/color';
+import Color from '../system/component/color';
 import Rectangle from '../system/drawing/rectangle';
-import Padding from '../system/drawing/padding';
-import SmoothedMovement from '../system/simulation/smoothedMovement';
+import Padding from '../system/component/padding';
+import SmoothedMovement from '../system/engine/simulation/smoothedMovement';
 
 export default class Enemy extends Player
 {

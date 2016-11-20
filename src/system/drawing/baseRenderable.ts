@@ -1,10 +1,15 @@
-import Vector2D from './vector2d';
-import Color from './color';
+/// <reference path="../component/vector2d.ts" />
+/// <reference path="../component/color.ts" />
+/// <reference path="./line/line.ts" />
+
+import Vector2D from '../component/vector2d';
+import Color from '../component/color';
+import {LineCap, LineJoin} from './line/line';
 
 /**
  * Represents a renderable object.
  */
-export abstract class Renderable implements IRenderable
+export abstract class BaseRenderable implements IRenderable
 {
     protected _position:Vector2D = new Vector2D(0, 0);
 
@@ -118,8 +123,6 @@ export abstract class Renderable implements IRenderable
         this._position.onChanged.subscribe(this.positionOnChanged);
     }
 
-    public update():void {}
-
     /**
      * Defines how an object reacts to the change of the position property.
      * @param sender The position that initiated the event.
@@ -189,26 +192,6 @@ export abstract class Renderable implements IRenderable
     }
 }
 
-export const LineCap = 
-{
-    /**
-     * Default
-     */
-    butt: 'butt',
-    round: 'round',
-    square: 'square'
-}
-
-export const LineJoin =
-{
-    /**
-     * Default
-     */
-    miter: 'miter',
-    round: 'round',
-    bevel: 'bevel'
-}
-
 /**
  * Minimum implementation of a Renderable object.
  */
@@ -227,6 +210,9 @@ export interface IRenderable
     intersects(position:Vector2D):boolean;
 }
 
+/**
+ * Implementation of Renderable that is NOT rotated by rotating the canvas context.
+ */
 export interface IRotatable
 {
     /**
@@ -241,34 +227,4 @@ export interface IRotatable
      * Re-calculates the internal properites.
      */
     update():void;
-}
-
-/**
- * No longer used.
- */
-export class RotatableRenderable extends Renderable
-{
-    public rotation:number = 0;
-
-    constructor(x:number, y:number, fillStyle:Color, strokeStyle:Color)
-    {
-        super(x, y, fillStyle, strokeStyle);
-    }
-
-    protected beginRender(ctx:CanvasRenderingContext2D):void
-    {
-        super.beginRender(ctx);
-
-        ctx.save();
-        ctx.translate(this._position.x, this._position.y);
-        ctx.rotate(this.rotation);
-        ctx.translate(-this._position.x, -this._position.y);
-    }
-
-    protected endRender(ctx:CanvasRenderingContext2D):void
-    {
-        super.endRender(ctx);
-
-        ctx.restore();
-    }
 }

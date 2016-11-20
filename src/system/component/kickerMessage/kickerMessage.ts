@@ -1,8 +1,7 @@
-import {Renderable, IRenderable} from '../renderable';
-import Vector2D from '../vector2d';
-import Size from '../size';
-import Color from '../color';
-import Text from '../text';
+import Vector2D from '../../component/vector2d';
+import Size from '../../component/size';
+import Color from '../../component/color';
+import Text from '../../drawing/text';
 import {map} from '../../helpers/math';
 
 /**

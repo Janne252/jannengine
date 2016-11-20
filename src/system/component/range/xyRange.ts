@@ -1,7 +1,7 @@
 import EventHandler from '../event/eventHandler';
 import Range, {RangeOnChangedCallback} from './range';
-import {IVector2D} from '../drawing/vector2D';
-import {IPadding} from '../drawing/padding';
+import {IVector2D} from '../../component/vector2D';
+import {IPadding} from '../../component/padding';
 /**
  * Represents 2-dimensional range (x, y).
  */

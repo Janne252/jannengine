@@ -1,8 +1,8 @@
-import Vector2D from '../system/drawing/vector2d';
-import Color from '../system/drawing/color';
+import Vector2D from '../system/component/vector2d';
+import Color from '../system/component/color';
 import Circle from '../system/drawing/circle';
 
-import {IProjectile} from '../system/simulation/projectile/projectileSystem';
+import {IProjectile} from '../system/engine/simulation/projectile/projectileSystem';
 
 export default class Projectile implements IProjectile
 {

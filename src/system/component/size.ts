@@ -1,4 +1,4 @@
-import EventHandler from '../event/eventHandler';
+import EventHandler from '../component/event/eventHandler';
 
 /**
  * Represents a 2-dimensional size (width and height).

@@ -1,10 +1,10 @@
-import {Renderable, IRenderable} from './renderable';
-import Vector2D from './vector2d';
-import Size from './size';
-import Color from './color';
-import Polygon from './polygon';
+import {BaseRenderable} from '../baseRenderable';
+import Vector2D from '../../component/vector2d';
+import Size from '../../component/size';
+import Color from '../../component/color';
+import Polygon from '../polygon';
 
-export default class Line extends Renderable implements IRenderable
+export default class Line extends BaseRenderable
 {
     private _endPosition:Vector2D = new Vector2D(0, 0);
     private _vertices:Vector2D[] = [];
@@ -99,3 +99,5 @@ export default class Line extends Renderable implements IRenderable
     }
 }
 
+export {LineCap as LineCap} from './lineCap';
+export {LineJoin as LineJoin} from './lineJoin';

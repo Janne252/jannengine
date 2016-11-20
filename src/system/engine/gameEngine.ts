@@ -1,11 +1,14 @@
 import InputProvider from './inputProvider';
-import Vector2D from '../system/drawing/vector2d';
-import Size from '../system/drawing/size';
-import Rectangle from '../system/drawing/rectangle';
+import Vector2D from '../component/vector2d';
+import Size from '../component/size';
+import Rectangle from '../drawing/rectangle';
 import FullscreenRequest from './fullscreenRequest';
-import Random from '../system/random';
-import Padding, {IPadding} from '../system/drawing/padding';
+import Random from '../component/random';
+import Padding, {IPadding} from '../component/padding';
 
+/**
+ * Represents the core engine.
+ */
 export default class GameEngine
 {
     private static _canvasCSS:string = 'html,body{margin:0;padding:0;overflow:hidden;}canvas#render{background-color:black;}';
@@ -14,30 +17,74 @@ export default class GameEngine
     private _fps:number = 0;
     private _lastFrameTime:number = 0;
     private _betweenFrameTime = 5;
-    private _logicTickInterval:number = 10;
     private _bounds:Rectangle = new Rectangle(0, 0, 0, 0);
+    private _simulationIntervalhandle:number = undefined;
+    private _simulationInterval:number = 10;
 
+    /**
+     * Whether or not the canvas should be sized to match the window.
+     */
     public autoFitCanvas:boolean = true;
+    /**
+     * Target framrate (frames rendered per second).
+     */
     public targetFrameRate:number = 60;
+    /**
+     * Wheter or not the method renderFrame() is called manually.
+     */
     public manualRender:boolean = false;
+    /**
+     * Whether or not a frame should be re-rendered if the canvas resizes and manualRender is enabled.
+     */
     public renderOnResize:boolean = true;
+    /**
+     * Whether or not the canvas rendering context should be cleared per each frame.
+     */
     public clearCanvasPerFrame:boolean = true;
+    /**
+     * Whether or not the fullscreen request popup should be displayed at the launch of the egine.
+     */
     public fullScreenPrompt:boolean = true;
+    /**
+     * Whether or not the canvas element has already been created.
+     */
     public canvasCreated:boolean = false;
-
+    /**
+     * Whether or not the simulation and rendering is paused. Overrides simulationPaused.
+     */
     public paused:boolean = false;
+    /**
+     * Whether or not the simulation is paused.
+     */
+    public simulationPaused:boolean = false;
     /**
      * Function that can be used to initialize variables before rendering starts.
      */
     public init = function() {};
 
     /**
-     * Main function used to render the frames.
+     * Main arrow function used to render the frames.
      */
     public render:(ctx:CanvasRenderingContext2D) => void = function(ctx:CanvasRenderingContext2D) {};
-
-
+    /**
+     * Main arrow function used to update simulation.
+     */
     public tick:() => void = function() {};
+    /**
+     * The interval of the simulation.
+     */
+    public get simulationInterval():number
+    {
+        return this._simulationInterval;
+    }
+    /**
+     * The interval of the simulation.
+     */
+    public set simulationInterval(value:number)
+    {
+        this._simulationInterval = value;
+        this._restartSimulation();
+    }
 
     public windowResize:(e:Event) => void = function(e:Event) {};
 
@@ -76,7 +123,7 @@ export default class GameEngine
 
     private _logicTick = () =>
     {
-        if (!this.paused)
+        if (!this.paused && !this.simulationPaused)
         {
             this.tick();
         }
@@ -93,7 +140,7 @@ export default class GameEngine
 
             if (sinceLast >= targetTimeBetweenFrames - this._betweenFrameTime)
             {
-                this._renderFrame();
+                this.renderFrame();
 
                 this._fps = 1000.0 / (now - this._lastFrameTime);
                 this._lastFrameTime = now;
@@ -103,7 +150,7 @@ export default class GameEngine
         }
     }
 
-    private _renderFrame():void
+    public renderFrame():void
     {
         if (this.clearCanvasPerFrame)
         {
@@ -185,7 +232,18 @@ export default class GameEngine
             this._tryRenderFrame();
         }
         
-        setInterval(this._logicTick, this._logicTickInterval); 
+        // Start simulation
+        this._restartSimulation();
+    }
+
+    private _restartSimulation():void
+    {
+        if (this._simulationIntervalhandle !== undefined)
+        {
+            window.clearInterval(this._simulationIntervalhandle);
+        }   
+
+        this._simulationIntervalhandle = window.setInterval(this._logicTick, this._simulationInterval);
     }
 
     public getRandomPosition(padding?:IPadding|Padding):Vector2D

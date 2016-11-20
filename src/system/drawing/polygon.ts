@@ -1,17 +1,19 @@
-import {Renderable, IRenderable} from './renderable';
-import Vector2D from './vector2d';
-import Size from './size';
-import Color from './color';
-import Padding, {IPadding} from './padding';
+/// <reference path="./baseRenderable.ts" />
+
+import {BaseRenderable} from './baseRenderable';
+import Vector2D from '../component/vector2d';
+import Size from '../component/size';
+import Color from '../component/color';
+import Padding, {IPadding} from '../component/padding';
 import {min, max} from '../helpers/math';
-import Random from '../random';
-import Range from './range';
-import XYRange from './xyRange';
+import Random from '../component/random';
+import Range from '../component/range/range';
+import XYRange from '../component/range/xyRange';
 
 /**
  * Represents a polygon with n number of vertices.
  */
-export default class Polygon extends Renderable implements IRenderable
+export default class Polygon extends BaseRenderable
 {
     private _vertices:Vector2D[] = [];
     private _xyRange:XYRange;

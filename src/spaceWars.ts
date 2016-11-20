@@ -1,26 +1,26 @@
-import GameEngine from './engine/gameEngine';
+import GameEngine from './system/engine/gameEngine';
 import Rectagle from './system/drawing/rectangle';
 import Circle from './system/drawing/circle';
 import Ellipse from './system/drawing/ellipse';
-import Line from './system/drawing/line';
-import {LineCap, LineJoin} from './system/drawing/renderable';
+import Line from './system/drawing/line/line';
+import {LineCap, LineJoin} from './system/drawing/line/line';
 import RegularPolygon from './system/drawing/regularPolygon';
 import Star from './system/drawing/star';
 import Text from './system/drawing/text';
 import Polygon from './system/drawing/polygon';
 import {TextAlign, TextBaseLine, TextDirection} from './system/drawing/text';
-import Color from './system/drawing/color';
-import Vector2D from './system/drawing/vector2d';
-import Padding from './system/drawing/padding';
-import Random from './system/random';
+import Color from './system/component/color';
+import Vector2D from './system/component/vector2d';
+import Padding from './system/component/padding';
+import Random from './system/component/random';
 import {lerp, map, rotateTowards, normalizeRadians} from './system/helpers/math';
 import {array_remove} from './system/helpers/array';
 import Player from './spaceWars/player';
 import Enemy from './spaceWars/enemy';
 import Projectile from './spaceWars/projectile';
-import ProjectileSystem from './system/simulation/projectile/projectileSystem';
-import ProjectileSystemEntry from './system/simulation/projectile/projectileSystemEntry';
-import ProjectileSystemResult from './system/simulation/projectile/projectileSystemResult';
+import ProjectileSystem from './system/engine/simulation/projectile/projectileSystem';
+import ProjectileSystemEntry from './system/engine/simulation/projectile/projectileSystemEntry';
+import ProjectileSystemResult from './system/engine/simulation/projectile/projectileSystemResult';
 
 import Sound from './system/sound/sound';
 

@@ -1,4 +1,4 @@
-import EventHandler from '../event/eventHandler';
+import EventHandler from '../component/event/eventHandler';
 import {lerp} from '../helpers/math';
 
 /**

@@ -1,9 +1,9 @@
-import {Renderable, IRenderable} from './renderable';
-import Vector2D from './vector2d';
-import Size from './size';
-import Color from './color';
+import {BaseRenderable} from './baseRenderable';
+import Vector2D from '../component/vector2d';
+import Size from '../component/size';
+import Color from '../component/color';
 
-export default class Ellipse extends Renderable implements IRenderable
+export default class Ellipse extends BaseRenderable
 {
     public size:Size = new Size(0, 0);
     public startAngle:number = 0;

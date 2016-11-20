@@ -1,14 +1,29 @@
-import {Renderable, IRenderable} from './renderable';
-import Vector2D from './vector2d';
+import {BaseRenderable, IRotatable} from './baseRenderable';
+import Vector2D from '../component/vector2d';
 import Polygon from './polygon';
-import Size from './size';
-import Color from './color';
+import Size from '../component/size';
+import Color from '../component/color';
 
-export default class Star extends Renderable implements IRenderable
+export default class Star extends BaseRenderable implements IRotatable
 {
     private _pointCount:number;
     private _innerRadius:number;
     private _outerRadius:number;
+
+    private _rotation:number = 0;
+
+    public noUpdate:boolean = false;
+
+    public get rotation():number
+    {
+        return this._rotation;
+    }
+
+    public set rotation(value:number)
+    {
+        this._rotation = value;
+        this.update();
+    }
     
     private _vertices:Vector2D[];
 
@@ -17,7 +32,7 @@ export default class Star extends Renderable implements IRenderable
     public set pointCount(value:number)
     {
         this._pointCount = value;
-        this._update();
+        this.update();
     }    
     
     public get innerRadius():number { return this._innerRadius; }
@@ -25,7 +40,7 @@ export default class Star extends Renderable implements IRenderable
     public set innerRadius(value:number)
     {
         this._innerRadius = value;
-        this._update();
+        this.update();
     }    
 
     public get outerRadius():number { return this._outerRadius; }
@@ -33,7 +48,7 @@ export default class Star extends Renderable implements IRenderable
     public set outerRadius(value:number)
     {
         this._outerRadius = value;
-        this._update();
+        this.update();
     }
 
     constructor(x:number = 0, y:number = 0, pointCount:number = 0, innerRadius:number = 0, outerRadius:number = 0, fillStyle:Color = Color.black, strokeStyle:Color = Color.white)
@@ -46,16 +61,21 @@ export default class Star extends Renderable implements IRenderable
 
         this._vertices = [];
 
-        this._update();
+        this.update();
     }
 
     protected positionOnChanged = (sender:Vector2D):void =>
     {
-        this._update();
+        this.update();
     }
 
-    private _update():void
+    public update():void
     {
+        if (this.noUpdate)
+        {
+            return;
+        }
+        
         this._vertices = [];
 
         var step = Math.PI * 2 / (this.pointCount * 2);
@@ -65,7 +85,7 @@ export default class Star extends Renderable implements IRenderable
         for(var i = -Math.PI; i <= Math.PI; i += step)
         {
             var radius = even ? this._outerRadius : this._innerRadius;
-            var pos = new Vector2D(this.position.x + radius * Math.cos(i), this.position.y + radius * Math.sin(i));
+            var pos = new Vector2D(this.position.x + radius * Math.cos(i + this._rotation), this.position.y + radius * Math.sin(i + this._rotation));
             this._vertices.push(pos);
 
             even = !even;

@@ -1,15 +1,40 @@
-import Vector2D from '../drawing/vector2D';
+import Vector2D from '../../component/vector2D';
 import SmoothedMovementSettings from '../simulation/smoothedMovementSettings';
-import {clamp} from '../helpers/math';
+import {clamp} from '../../helpers/math';
 
+/**
+ * Represents movement simulation between points.
+ */
 export default class SmoothedMovement
 {
+    /**
+     * The settings used to control the movement.
+     */
     public settings:SmoothedMovementSettings;
+    /**
+     * Current velocity.
+     */
     public velocity:Vector2D;
+    /**
+     * Current position.
+     */
     public position:Vector2D;
+    /**
+     * Current movement starting position.
+     */
     public startPosition:Vector2D;
+    /**
+     * Current movement target position.
+     */
     public targetPosition:Vector2D;
-
+    /**
+     *  The arrow function used to get a new target once the current target position has been reached.
+     */
+    public getNewTargetPosition:TargetPositionProvider;
+    /**
+     * Creates a new instance of SmoothedMovement.
+     * @param position The current position.
+     */
     constructor(position:Vector2D)
     {
         this.settings = new SmoothedMovementSettings();
@@ -18,8 +43,9 @@ export default class SmoothedMovement
         this.position = new Vector2D(position);
     }
 
-    public getNewTargetPosition:TargetPositionProvider;
-
+    /**
+     * Updates the target position.
+     */
     public updateTargetPosition():boolean
     {
         let newPos = this.getNewTargetPosition();
@@ -33,12 +59,16 @@ export default class SmoothedMovement
 
         return true;
     }
-
+    /**
+     * Updates the starting position.
+     */
     public updateStartPosition():void
     {
         this.startPosition.set(this.position);
     }
-
+    /**
+     * Sets the new target position.
+     */
     private _setTargetPosition(position:Vector2D):void
     {
         if (!position.equals(this.targetPosition))
@@ -46,7 +76,9 @@ export default class SmoothedMovement
             this.targetPosition = position;
         }
     }
-
+    /**
+     * Updates the SmoothedMovement.
+     */
     public update = () => 
     {
         let settings = this.settings;
@@ -97,6 +129,9 @@ export default class SmoothedMovement
     }
 }
 
+/**
+ * Required implementation of SmoothedMovement.getNewTargetPosition.
+ */
 export interface TargetPositionProvider
 {
     ():Vector2D;

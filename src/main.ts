@@ -1,11 +1,11 @@
-import GameEngine from './engine/gameEngine';
+import GameEngine from './system/engine/gameEngine';
 import Rectagle from './system/drawing/rectangle';
 import Circle from './system/drawing/circle';
 import Ellipse from './system/drawing/ellipse';
-import Line from './system/drawing/line';
+import Line from './system/drawing/line/line';
 import RegularPolygon from './system/drawing/regularPolygon';
 import Text from './system/drawing/text';
-import Color from './system/drawing/color';
+import Color from './system/component/color';
 import {lerp, map} from './system/helpers/math';
 
 

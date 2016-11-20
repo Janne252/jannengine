@@ -1,5 +1,5 @@
-import EventHandler from '../../event/eventHandler';
-import {clamp} from '../../helpers/math';
+import EventHandler from '../../../component/event/eventHandler';
+import {clamp} from '../../../helpers/math';
 
 /**
  * Represents entity health (hitpoints) value.

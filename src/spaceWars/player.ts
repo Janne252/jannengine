@@ -1,19 +1,19 @@
-import Color from '../system/drawing/color';
+import Color from '../system/component/color';
 import Rectangle from '../system/drawing/rectangle';
-import Vector2D from '../system/drawing/vector2d';
+import Vector2D from '../system/component/vector2d';
 import RegularPolygon from '../system/drawing/regularPolygon';
 import Circle from '../system/drawing/circle';
 import Projectile from '../spaceWars/projectile';
 import {rotateTowards, normalizeRadians, map} from '../system/helpers/math';
 import {array_remove} from '../system/helpers/array';
-import SmoothedMovement from '../system/simulation/SmoothedMovement';
-import Hitpoints from '../system/simulation/hitpoints/hitpoints';
-import HitpointBar, {IHitpointBarOwner} from '../system/simulation/hitpoints/hitpointBar';
+import SmoothedMovement from '../system/engine/simulation/SmoothedMovement';
+import Hitpoints from '../system/engine/simulation/hitpoint/hitpoints';
+import HitpointBar, {IHitpointBarOwner} from '../system/engine/simulation/hitpoint/hitpointBar';
 
-import {IProjectileOwner, IProjectileTarget} from '../system/simulation/projectile/projectileSystem';
+import {IProjectileOwner, IProjectileTarget} from '../system/engine/simulation/projectile/projectileSystem';
 
-import KickerMessageManager from '../system/drawing/kickerMessage/kickerMessageManager';
-import KickerMessage, {IKickerMessageOwner} from '../system/drawing/kickerMessage/kickerMessage';
+import KickerMessageManager from '../system/component/kickerMessage/kickerMessageManager';
+import KickerMessage, {IKickerMessageOwner} from '../system/component/kickerMessage/kickerMessage';
 
 export default class Player implements IProjectileOwner, IProjectileTarget, IKickerMessageOwner, IHitpointBarOwner
 {

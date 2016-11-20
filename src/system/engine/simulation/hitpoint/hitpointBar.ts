@@ -1,8 +1,8 @@
 import Hitpoints from './hitpoints';
-import Size from '../../drawing/size';
-import Vector2D from '../../drawing/vector2D';
-import Color from '../../drawing/color';
-import Rectangle, {RectangleOrigin} from '../../drawing/rectangle';
+import Size from '../../../component/size';
+import Vector2D from '../../../component/vector2D';
+import Color from '../../../component/color';
+import Rectangle, {RectangleOrigin} from '../../../drawing/rectangle';
 
 /**
  * Represents a hitpoint display, i.e. |████   |
