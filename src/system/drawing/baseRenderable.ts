@@ -6,6 +6,45 @@ import Vector2D from '../component/vector2d';
 import Color from '../component/color';
 import {LineCap, LineJoin} from './line/line';
 
+
+/**
+ * Implementation of Renderable that is NOT rotated by rotating the canvas context.
+ */
+export interface IRotatable
+{
+    /**
+     * The rotation of the object in radians.
+     */
+    rotation:number;
+    /**
+     * Wheter the internal updating of the object is paused.
+     */
+    noUpdate:boolean;
+    /**
+     * Re-calculates the internal properites.
+     */
+    update():void;
+}
+
+
+/**
+ * Minimum implementation of a Renderable object.
+ */
+export interface IRenderable
+{
+    /**
+     * Renders the object.
+     * @param ctx CanvasRenderingContext2D used to render.
+     */
+    render(ctx:CanvasRenderingContext2D):void;
+    /**
+     * Checks if a position is inside of the object.
+     * @param vector The position to check.
+     * Returns true if the position is inside the object.
+     */
+    intersects(position:Vector2D):boolean;
+}
+
 /**
  * Represents a renderable object.
  */
@@ -190,41 +229,4 @@ export abstract class BaseRenderable implements IRenderable
     {
         throw new Error('Child class must implement method "intersects".');
     }
-}
-
-/**
- * Minimum implementation of a Renderable object.
- */
-export interface IRenderable
-{
-    /**
-     * Renders the object.
-     * @param ctx CanvasRenderingContext2D used to render.
-     */
-    render(ctx:CanvasRenderingContext2D):void;
-    /**
-     * Checks if a position is inside of the object.
-     * @param vector The position to check.
-     * Returns true if the position is inside the object.
-     */
-    intersects(position:Vector2D):boolean;
-}
-
-/**
- * Implementation of Renderable that is NOT rotated by rotating the canvas context.
- */
-export interface IRotatable
-{
-    /**
-     * The rotation of the object in radians.
-     */
-    rotation:number;
-    /**
-     * Wheter the internal updating of the object is paused.
-     */
-    noUpdate:boolean;
-    /**
-     * Re-calculates the internal properites.
-     */
-    update():void;
 }

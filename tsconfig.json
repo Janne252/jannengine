@@ -4,10 +4,22 @@
         "target": "es5",
         "module":"amd",
         "sourceMap": true,
+        "declaration": false,
         "removeComments": true,
-        "outDir": "./js/out",
         "rootDir": "./src",
         "watch": true,
-        "outFile": "./js/out/combined.js"
-    }
+
+        // Replaced by outfile
+        //"outDir": "./js/out",
+        "outFile": "./js/out/combined.js",
+
+        // Debug options
+        "listFiles": true,
+        "diagnostics": false,
+        "listEmittedFiles": false
+    },
+    // Exclude files that are not considered a part of the project
+    "exclude": [
+        "./src_off"
+    ]
 }

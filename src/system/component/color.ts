@@ -66,7 +66,7 @@ export default class Color
      * Converts the Color to a CSS rgba(red, green, blue, alpha) string.
      * Returns the result string.
      */
-    public toCSS():String
+    public toCSS():string
     {
         return `rgba(${this.red}, ${this.green}, ${this.blue}, ${this.alpha})`;
     }
@@ -74,7 +74,7 @@ export default class Color
      * Converts the Color to a CSS rgba(red, green, blue, alpha) string.
      * Returns the result string.
      */
-    public toString():String
+    public toString():string
     {
         return this.toCSS();
     }
