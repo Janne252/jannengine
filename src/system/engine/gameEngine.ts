@@ -97,30 +97,77 @@ export default class GameEngine
         this._simulationInterval = value;
         this._restartSimulation();
     }
-
+    /**
+     * Handler for the web page's resize event.
+     */
     public windowResize:(e:Event) => void = function(e:Event) {};
-
+    /**
+     * Handler for global keydown event.
+     */
     public keyDown:KeyboardEventHandler = function(e:KeyboardEvent) {};
+    /**
+     * Handler for global keypress event.
+     */
     public keyPress:KeyboardEventHandler = function(e:KeyboardEvent) {};
+    /**
+     * Handler for global keyup event.
+     */
     public keyUp:KeyboardEventHandler = function(e:KeyboardEvent) {};
-
+    /**
+     * Handler for global touchstart event.
+     */
     public touchStart:TouchEventHandler = function(e:TouchEvent) {};
+    /**
+     * Handler for canvas touchend event.
+     */
     public touchEnd:TouchEventHandler = function(e:TouchEvent) {};
+    /**
+     * Handler for canvas touchcancel event.
+     */
     public touchCancel:TouchEventHandler = function(e:TouchEvent) {};
+    /**
+     * Handler for canvas touchmove event.
+     */
     public touchMove:TouchEventHandler = function(e:TouchEvent) {};
-
+    /**
+     * Handler for canvas mousemove event.
+     */
     public mouseMove:MouseEventHandler = function(e:MouseEvent) {};
+    /**
+     * Handler for canvas click event.
+     */
     public click:MouseEventHandler = function(e:MouseEvent) {};
+    /**
+     * Handler for canvas doubleclick event.
+     */
     public doubleClick:MouseEventHandler = function(e:MouseEvent) {};
+    /**
+     * Handler for canvas mousedown event.
+     */
     public mouseDown:MouseEventHandler = function(e:MouseEvent) {};
+    /**
+     * Handler for canvas mouseup event.
+     */
     public mouseUp:MouseEventHandler = function(e:MouseEvent) {};
-
+    /**
+     * Handler for canvas mouseleave event.
+     */
     public mouseLeave:MouseEventHandler = function(e:MouseEvent) {};
+    /**
+     * Handler for canvas mouseenter event.
+     */
     public mouseEnter:MouseEventHandler = function(e:MouseEvent) {};
-
+    /**
+     * Whether or not the mouse is currently pressed down.
+     */
     public isMouseDown:boolean = false;
-    public isMouseOut:boolean = false;
-
+    /**
+     * Whether or not the mouse is currently outside of the canvas.
+     */
+    public isMouseOut:boolean = false;  
+    /**
+     * The current position of the mouse on the canvas.
+     */
     public mousePos:Vector2D = new Vector2D(0, 0);
     
     constructor()
