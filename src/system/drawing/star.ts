@@ -1,4 +1,4 @@
-import {BaseRenderable, IRotatable} from './baseRenderable';
+import {BaseRenderable, IRotatable} from './renderable/baseRenderable';
 import Vector2D from '../component/vector2d';
 import Polygon from './polygon';
 import Size from '../component/size';

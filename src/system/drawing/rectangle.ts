@@ -1,6 +1,5 @@
-/// <references path='renderable/baseRenderable' />
 
-import {BaseRenderable, IRotatable} from './baseRenderable';
+import {BaseRenderable, IRotatable} from './renderable/baseRenderable';
 import Random from '../component/random';
 import Vector2D from '../component/vector2d';
 import Size from '../component/size';
@@ -109,7 +108,6 @@ export default class Rectangle extends BaseRenderable implements IRotatable
         this.update();
         this._size.onChanged.subscribe(this.sizeOnChanged);
     }
-
     /**
      * Reacts to Rectangle.size changes.
      * @param sender The sender of the event.
@@ -118,7 +116,6 @@ export default class Rectangle extends BaseRenderable implements IRotatable
     {
         this.update();
     }
-
     /**
      * Re-calculates the Rectangle vertices.
      */
@@ -167,7 +164,6 @@ export default class Rectangle extends BaseRenderable implements IRotatable
 
         this._vertices = [topLeft, topRight, bottomRight, bottomLeft];
     }
-
     /**
      * Renders the Rectangle.
      * @param ctx CanvasRenderingContext2D used to render.
@@ -180,7 +176,6 @@ export default class Rectangle extends BaseRenderable implements IRotatable
         
         this.endRender(ctx);
     }
-
     /**
      * Checks if a position is inside of the Rectangle.
      * @param vector The position to check.
@@ -190,7 +185,6 @@ export default class Rectangle extends BaseRenderable implements IRotatable
     {
         return Polygon.intersects(this._vertices, vector);
     }
-
     /**
      * Returns a random position inside the rectangle. Does not take rotation into account.
      * @param padding Padding used to prevent results near the edges.
@@ -200,7 +194,6 @@ export default class Rectangle extends BaseRenderable implements IRotatable
     {
         return Polygon.getRandomPosition(this._vertices, padding);
     }
-
     /**
      * Converts the Rectangle to a string representation, e.g. ([0, 0], [100, 0], [100, 100], [0, 100])
      * Returns the string.

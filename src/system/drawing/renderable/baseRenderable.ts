@@ -1,49 +1,5 @@
-/// <reference path="../component/vector2d.ts" />
-/// <reference path="../component/color.ts" />
-/// <reference path="./line/line.ts" />
-
-import Vector2D from '../component/vector2d';
-import Color from '../component/color';
-import {LineCap, LineJoin} from './line/line';
-
-
-/**
- * Implementation of Renderable that is NOT rotated by rotating the canvas context.
- */
-export interface IRotatable
-{
-    /**
-     * The rotation of the object in radians.
-     */
-    rotation:number;
-    /**
-     * Wheter the internal updating of the object is paused.
-     */
-    noUpdate:boolean;
-    /**
-     * Re-calculates the internal properites.
-     */
-    update():void;
-}
-
-
-/**
- * Minimum implementation of a Renderable object.
- */
-export interface IRenderable
-{
-    /**
-     * Renders the object.
-     * @param ctx CanvasRenderingContext2D used to render.
-     */
-    render(ctx:CanvasRenderingContext2D):void;
-    /**
-     * Checks if a position is inside of the object.
-     * @param vector The position to check.
-     * Returns true if the position is inside the object.
-     */
-    intersects(position:Vector2D):boolean;
-}
+import Vector2D from '../../component/vector2d';
+import Color from '../../component/color';
 
 /**
  * Represents a renderable object.
@@ -55,11 +11,11 @@ export abstract class BaseRenderable implements IRenderable
     /**
      * Used as CanvasRenderingContext2D.lineCap.
      */
-    public lineCap:string = LineCap.butt;
+    public lineCap:string = 'butt';
     /**
      * Used as CanvasRenderingContext2D.lineJoin.
      */
-    public lineJoin:string = LineJoin.miter;
+    public lineJoin:string = 'miter';
     /**
      * Used as CanvasRenderingContext2D.miterLimit.
      */
@@ -229,4 +185,69 @@ export abstract class BaseRenderable implements IRenderable
     {
         throw new Error('Child class must implement method "intersects".');
     }
+}
+
+/**
+ * Implementation of Renderable that is NOT rotated by rotating the canvas context.
+ * Instead, the object rotates by re-calculating its attributes. 
+ */
+export interface IRotatable
+{
+    /**
+     * The rotation of the object in radians.
+     */
+    rotation:number;
+    /**
+     * Wheter the internal updating of the object is paused.
+     */
+    noUpdate:boolean;
+    /**
+     * Re-calculates the internal properites.
+     */
+    update():void;
+}
+
+
+/**
+ * Minimum implementation of a Renderable object.
+ */
+export interface IRenderable
+{
+    /**
+     * Renders the object.
+     * @param ctx CanvasRenderingContext2D used to render.
+     */
+    render(ctx:CanvasRenderingContext2D):void;
+    /**
+     * Checks if a position is inside of the object.
+     * @param vector The position to check.
+     * Returns true if the position is inside the object.
+     */
+    intersects(position:Vector2D):boolean;
+}
+
+/**
+ * Represents the possible CanvasRenderingContext2D.lineCap values.
+ */
+export const LineCap = 
+{
+    /**
+     * Default value of LineCap.
+     */
+    butt: 'butt',
+    round: 'round',
+    square: 'square'
+}
+
+/**
+ * Represents the possible CanvasRenderingContext2D.lineJoin values.
+ */
+export const LineJoin =
+{
+    /**
+     * Default value of LineJoin.
+     */
+    miter: 'miter',
+    round: 'round',
+    bevel: 'bevel'
 }

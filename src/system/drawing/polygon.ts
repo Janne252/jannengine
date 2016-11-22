@@ -1,11 +1,9 @@
-/// <reference path="./baseRenderable.ts" />
-
-import {BaseRenderable} from './baseRenderable';
+import {BaseRenderable} from './renderable/baseRenderable';
 import Vector2D from '../component/vector2d';
 import Size from '../component/size';
 import Color from '../component/color';
 import Padding, {IPadding} from '../component/padding';
-import {min, max} from '../helpers/math';
+import {min, max, polygon_intersects} from '../helpers/math';
 import Random from '../component/random';
 import Range from '../component/range/range';
 import XYRange from '../component/range/xyRange';
@@ -195,24 +193,7 @@ export default class Polygon extends BaseRenderable
      */
     public static intersects(vertices:Vector2D[], vector:Vector2D):boolean
     {
-        // ray-casting algorithm based on
-        // http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
-
-        var x = vector.x, y = vector.y;
-        
-        var inside = false;
-
-        for (var i = 0, j = vertices.length - 1; i < vertices.length; j = i++)
-        {
-            var xi = vertices[i].x, yi = vertices[i].y;
-            var xj = vertices[j].x, yj = vertices[j].y;
-            
-            var intersect = ((yi > y) != (yj > y))
-                && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
-            if (intersect) inside = !inside;
-        }
-        
-        return inside;
+        return polygon_intersects(vertices, vector);
     }
     /**
      * Warning! This is a semi-expensive operation.
@@ -229,27 +210,6 @@ export default class Polygon extends BaseRenderable
         let yRange = new Range(padding !== undefined ? xyRange.minY + padding.top : xyRange.minY, padding !== undefined ? xyRange.maxY - padding.bottom : xyRange.maxY);
 
         return Polygon._getRandomPosition(xRange, yRange, vertices, padding);
-    }
-
-    public static intersects2(vertices:Vector2D[], vector:Vector2D):boolean
-    {
-        // From http://stackoverflow.com/a/14998816/4438600
-        
-        let result = false;
-        let j = vertices.length - 1;
-
-        for (let i = 0; i < vertices.length; i++)
-        {
-            if (vertices[i].y < vector.y && vertices[j].y >= vector.y || vertices[j].y < vector.y && vertices[i].y >= vector.y)
-            {
-                if (vertices[i].x + (vector.y - vertices[i].y) / (vertices[j].y - vertices[i].y) * (vertices[j].x - vertices[i].x) < vector.x)
-                {
-                    result = !result;
-                }
-            }
-            j = i;
-        }
-        return result;
     }
     /**
      * Renders a polygon from an array of vertices (Vector2D[]).

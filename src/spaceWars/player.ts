@@ -7,17 +7,17 @@ import Projectile from '../spaceWars/projectile';
 import {rotateTowards, normalizeRadians, map} from '../system/helpers/math';
 import {array_remove} from '../system/helpers/array';
 import SmoothedMovement from '../system/engine/simulation/SmoothedMovement';
-import Hitpoints from '../system/engine/simulation/hitpoint/hitpoints';
-import HitpointBar, {IHitpointBarOwner} from '../system/engine/simulation/hitpoint/hitpointBar';
+import Hitpoints from '../system/engine/simulation/health/health';
+import HealthBar, {IHealthBarOwner} from '../system/drawing/healthBar/healthBar';
 
 import {IProjectileOwner, IProjectileTarget} from '../system/engine/simulation/projectile/projectileSystem';
 
-import KickerMessageManager from '../system/component/kickerMessage/kickerMessageManager';
-import KickerMessage, {IKickerMessageOwner} from '../system/component/kickerMessage/kickerMessage';
+import KickerMessageManager from '../system/drawing/kickerMessage/kickerMessageManager';
+import KickerMessage, {IKickerMessageOwner} from '../system/drawing/kickerMessage/kickerMessage';
 
-export default class Player implements IProjectileOwner, IProjectileTarget, IKickerMessageOwner, IHitpointBarOwner
+export default class Player implements IProjectileOwner, IProjectileTarget, IKickerMessageOwner, IHealthBarOwner
 {
-    private _hpBar:HitpointBar;
+    private _hpBar:HealthBar;
     private _messages:KickerMessageManager = new KickerMessageManager();
     private _triangle:RegularPolygon;
     private _circle:Circle;
@@ -131,7 +131,7 @@ export default class Player implements IProjectileOwner, IProjectileTarget, IKic
 
         this.hitpoints = new Hitpoints(hitpoints, hitpoints);
         this.hitpoints.onChanged.subscribe(this.hitpointsOnChanged);
-        this._hpBar = new HitpointBar(100, 10, this, 0, -100);
+        this._hpBar = new HealthBar(100, 10, this, 0, -100);
     }
 
     protected hitpointsOnChanged = (sender:Hitpoints, oldValue:number, newValue:number) =>
@@ -148,7 +148,7 @@ export default class Player implements IProjectileOwner, IProjectileTarget, IKic
         message.text.fillStyle = (diff < 0 ? Color.red : Color.green);
         message.text.stroke = false;
 
-        this._messages.add(message);
+       this._messages.add(message);
     }
     
     protected _getNewTargetPosition = ():Vector2D => 

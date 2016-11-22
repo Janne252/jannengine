@@ -1,4 +1,4 @@
-import {BaseRenderable, IRotatable} from './baseRenderable';
+import {BaseRenderable, IRotatable} from './renderable/baseRenderable';
 import Vector2D from '../component/vector2d';
 import Polygon from './polygon';
 import Color from '../component/color';
@@ -78,7 +78,6 @@ export default class RegularPolygon extends BaseRenderable implements IRotatable
 
         this.update();
     }
-
     /**
      * Reacts to the changes of the position property.
      */
@@ -86,7 +85,6 @@ export default class RegularPolygon extends BaseRenderable implements IRotatable
     {
         this.update();
     }
-
     /**
      * Re-calculates the RegularPolygon positions based on its position, radius, vertexCount, and rotation.
      */
@@ -107,7 +105,6 @@ export default class RegularPolygon extends BaseRenderable implements IRotatable
             this._vertices.push(pos);
         }
     }
-
     /**
      * Renders the RegularPolygon.
      * @param ctx CanvasRenderingContext2D used to render.
@@ -120,7 +117,6 @@ export default class RegularPolygon extends BaseRenderable implements IRotatable
         
         this.endRender(ctx);
     }
-
     /**
      * Inspects if a position is inside the regular polygon.
      * @param position The position to check against.

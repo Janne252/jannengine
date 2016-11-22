@@ -4,12 +4,12 @@ import {clamp} from '../../../helpers/math';
 /**
  * Represents entity health (hitpoints) value.
  */
-export default class HitPoints
+export default class Health
 {
     private _value:number;
-    private _onChanged = new EventHandler<HitPointsOnChangedCallback>();
+    private _onChanged = new EventHandler<HealthOnChangedCallback>();
     
-    public get onChanged():EventHandler<HitPointsOnChangedCallback>
+    public get onChanged():EventHandler<HealthOnChangedCallback>
     {
         return this._onChanged;
     }
@@ -93,12 +93,12 @@ export default class HitPoints
 /**
  * Callback type for Hitpoints.onChanged event handler.
  */
-export interface HitPointsOnChangedCallback
+export interface HealthOnChangedCallback
 {
     /**
      * @param sender The initiator of the event.
      * @param oldValue Previous hitpoints value.
      * @param newValue The new hitpoints value.
      */
-    (sender:HitPoints, oldValue:number, newValue:number):void;
+    (sender:Health, oldValue:number, newValue:number):void;
 }

@@ -5,7 +5,7 @@ import Rectangle from '../drawing/rectangle';
 import FullscreenRequest from './fullscreenRequest';
 import Random from '../component/random';
 import Padding, {IPadding} from '../component/padding';
-
+import ProjectileSystem from './simulation/projectile/projectileSystem';
 /**
  * Represents the core engine.
  */
@@ -21,6 +21,18 @@ export default class GameEngine
     private _simulationIntervalhandle:number = undefined;
     private _simulationInterval:number = 10;
 
+    /**
+     * Projectile system.
+     */
+    public projectileSystem: ProjectileSystem = new ProjectileSystem();
+    /**
+     * Wheter or not console.profile is used to profile the render loop.
+     */
+    public profileRender: boolean = false;
+    /**
+     * Wheter or not console.profile is used to profile the simulation loop.
+     */
+    public profileSimulation: boolean = false;
     /**
      * Whether or not the canvas should be sized to match the window.
      */
@@ -125,7 +137,17 @@ export default class GameEngine
     {
         if (!this.paused && !this.simulationPaused)
         {
+            if (this.profileSimulation)
+            {
+                console.profile('Simulation');
+            }
+
             this.tick();
+
+            if(this.profileSimulation)
+            {
+                console.profileEnd();
+            }
         }
     }
 
@@ -157,7 +179,17 @@ export default class GameEngine
             this.clearCanvas();
         }
 
+        if (this.profileRender)
+        {
+            console.profile('Render');
+        }
+
         this.render(this.context);
+
+        if(this.profileRender)
+        {
+            console.profileEnd();
+        }
     }
 
     private updateBounds():void

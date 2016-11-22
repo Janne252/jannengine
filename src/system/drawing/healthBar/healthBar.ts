@@ -1,16 +1,18 @@
-import Hitpoints from './hitpoints';
-import Size from '../../../component/size';
-import Vector2D from '../../../component/vector2D';
-import Color from '../../../component/color';
-import Rectangle, {RectangleOrigin} from '../../../drawing/rectangle';
+import Hitpoints from './../../engine/simulation/health/health';
+import Size from '../../component/size';
+import Vector2D from '../../component/vector2D';
+import Color from '../../component/color';
+import Rectangle, {RectangleOrigin} from '../../drawing/rectangle';
+import {HealthBarElement, HealthBarBase, HealthBarProgress} from './healthBarElement';
 
 /**
  * Represents a hitpoint display, i.e. |████   |
+ * Designed to be update()'d every logic tick.
  */
-export default class HitpointBar implements IHitpointBar
+export default class HealthBar implements IHealthBar
 {
     private _size:Size = undefined;
-    private _owner:IHitpointBarOwner;
+    private _owner:IHealthBarOwner;
     private _offset:Vector2D = undefined;
     private _centerOffset:Vector2D = new Vector2D(0, 0);
     private _progressOffset:Vector2D = new Vector2D(0, 0);
@@ -35,13 +37,7 @@ export default class HitpointBar implements IHitpointBar
      */
     public set offset(value:Vector2D)
     {
-        if (this._offset !== undefined)
-        {
-            this._offset.onChanged.unsubscribe(this.onOffsetChanged);
-        }
-
         this._offset = value;
-        this._offset.onChanged.subscribe(this.onOffsetChanged);
     }
     /**
      * The size (width and height) of the visual HitPointBar.
@@ -55,30 +51,23 @@ export default class HitpointBar implements IHitpointBar
      */
     public set size(value:Size)
     {
-        if (this._size !== undefined)
-        {
-            this._size.onChanged.unsubscribe(this.sizeOnChanged);
-        }
-
         this._size = value;
-        this.update();
-        this._size.onChanged.subscribe(this.sizeOnChanged);
     }
     /**
      * The owner of the HitpointBar which is used to calculate the position of the HitPointBar.
      */
-    public get owner():IHitpointBarOwner
+    public get owner():IHealthBarOwner
     {
         return this._owner;   
     }
     /**
      * The base (background) element of the HitpointBar.
      */
-    public base:HitpointBarElement;
+    public base:HealthBarElement;
     /**
      * The progress (foreground) element of the HitpointBar.
      */
-    public progress:HitpointBarElement;
+    public progress:HealthBarElement;
     /**
      * Creates a new istance of HitpointBar.
      * @param width The width of the visual HitPointBar.
@@ -87,30 +76,16 @@ export default class HitpointBar implements IHitpointBar
      * @param offsetX The x-offset of the HitpointBar relative to its owner's position.
      * @param offsetY The y-offset of the HitpointBar relative to its owner's position.
      */
-    constructor(width:number, height:number, owner:IHitpointBarOwner, offsetX:number = 0, offsetY:number = -50)
+    constructor(width:number, height:number, owner:IHealthBarOwner, offsetX:number = 0, offsetY:number = -50)
     {
         this._size = new Size(width, height);
         this._offset = new Vector2D(offsetX, offsetY);
         this._owner = owner;
 
-        this.base = new HitpointBarBase(Color.white, Color.white, 1, this);
-        this.progress = new HitpointBarProgress(Color.black, Color.black, 0, this);
+        this.base = new HealthBarBase(Color.white, Color.white, 1, this);
+        this.progress = new HealthBarProgress(Color.black, Color.black, 0, this);
         this.base.transparency = 0.2;
         this.progress.transparency = 0.5;
-    }
-    /**
-     * Reacts to changes of the size property.
-     */
-    protected sizeOnChanged = (sender:Size):void => 
-    {
-        this.update();
-    }
-    /**
-     * Reacts to changes of the offset property.
-     */
-    protected onOffsetChanged = (sender:Vector2D):void =>
-    {
-        this.update();
     }
     /**
      * Returns the width of the progress element.
@@ -169,123 +144,24 @@ export default class HitpointBar implements IHitpointBar
     }
 }
 
-/**
- * Represents abtract implementation of HitPointBar base and progress elements.
- */
-export abstract class HitpointBarElement implements IHitpointBarElement
-{
-    private _transparency:number = 1.0;
-    /**
-     * The parent object.
-     */
-    private _parent:IHitpointBar;
-    /**
-     * The visual rectangle that can be altered to change the HitpointBar's appearance.
-     */
-    public rectangle:Rectangle;
-
-    public get transparency():number
-    {
-        return this._transparency;
-    }
-    /**
-     * The transparency of the HitpointBar (between 0.0 and 1.0)
-     */
-    public set transparency(value:number)
-    {
-        this._transparency = value;
-        this.update();
-    }
-    /**
-     * Creates a new instance of HitpointBarElement.
-     * @param fillStyle Color used as the CanvasRenderingContext2D.fillStyle.
-     * @param strokeStyle Color used as the CanvasRenderingContext2D.strokeStyle.
-     * @param lineWidth Width of the line going around the visible rectangle.
-     * @param parent The parent IHitpointBar.
-     */
-    constructor(fillStyle:Color, strokeStyle:Color, lineWidth:number, parent:IHitpointBar)
-    {
-        this.rectangle = new Rectangle(0, 0, 0, 0);
-        this.rectangle.origin = RectangleOrigin.TopLeft;
-        this.rectangle.fillStyle = fillStyle;
-        this.rectangle.strokeStyle = strokeStyle;
-        this.rectangle.lineWidth = lineWidth;
-        this._parent = parent;
-    }
-    /**
-     * Renders the HitpointBarElement.
-     * @param ctx CanvasRenderingContext2D used to render.
-     */
-    public render(ctx:CanvasRenderingContext2D):void
-    {
-        this.rectangle.render(ctx);
-    }
-
-    /**
-     * Updates the IHitpointBarElement.
-     */
-    public update()
-    {
-        this.rectangle.fillStyle.alpha = this._transparency;
-        this.rectangle.strokeStyle.alpha = this._transparency;
-    }
-}
-
-/**
- * Represents HitPointBar background.
- */
-export class HitpointBarBase extends HitpointBarElement
-{
-    /**
-     * Creates a new instance of HitpointBarBase.
-     * @param fillStyle Color used as the CanvasRenderingContext2D.fillStyle.
-     * @param strokeStyle Color used as the CanvasRenderingContext2D.strokeStyle.
-     * @param lineWidth Width of the line going around the visible rectangle.
-     * @param parent The parent IHitpointBar.
-     */
-    constructor(fillStyle:Color, strokeStyle:Color, lineWidth:number, parent:IHitpointBar)
-    {
-        super(fillStyle, strokeStyle, lineWidth, parent);
-        this.rectangle.stroke = false;
-    }
-}
-
-/**
- * Represents HitPointBar progress.
- */
-export class HitpointBarProgress extends HitpointBarElement
-{
-    /**
-     * Creates a new instance of HitpointBarProgress.
-     * @param fillStyle Color used as the CanvasRenderingContext2D.fillStyle.
-     * @param strokeStyle Color used as the CanvasRenderingContext2D.strokeStyle.
-     * @param lineWidth Width of the line going around the visible rectangle.
-     * @param parent The parent IHitpointBar.
-     */
-    constructor(fillStyle:Color, strokeStyle:Color, lineWidth:number, parent:IHitpointBar)
-    {
-        super(fillStyle, strokeStyle, lineWidth, parent);
-        this.rectangle.stroke = false;
-    }
-}
 
 /**
  * Minimum implementation of a Hitpoint bar.
  */
-export interface IHitpointBar
+export interface IHealthBar
 {
     /**
      * Owner of the HitpointBar.
      */
-    owner:IHitpointBarOwner;
+    owner:IHealthBarOwner;
     /**
      * Background of the HitpointBar.
     */   
-    base:IHitpointBarElement;
+    base:IHealthBarElement;
     /**
      * Foreground (actual progress indicator) of the HitpointBar.
     */   
-    progress:IHitpointBarElement;
+    progress:IHealthBarElement;
     /**
      * The transparency of the HitpointBar (between 0.0 and 1.0)
      */
@@ -299,7 +175,7 @@ export interface IHitpointBar
 /**
  * Minimum implementation of a Hitpoint bar's owner.
  */
-export interface IHitpointBarOwner
+export interface IHealthBarOwner
 {
     /**
      * The position of the IHitpointBarOwner.
@@ -314,7 +190,7 @@ export interface IHitpointBarOwner
 /**
  * Minimum implementation of a Hitpoint bar's element (base and progress).
  */
-export interface IHitpointBarElement
+export interface IHealthBarElement
 {
     /**
      * The transparency of the HitpointBar (between 0.0 and 1.0)

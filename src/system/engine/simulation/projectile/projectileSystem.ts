@@ -1,5 +1,5 @@
 import Vector2D from '../../../component/vector2D';
-import Hitpoints from '../hitpoint/hitpoints';
+import Hitpoints from '../health/health';
 import ProjectileSystemEntry from './projectileSystemEntry';
 import ProjectileSystemResult from './projectileSystemResult';
 import EventHandler from '../../../component/event/eventHandler';

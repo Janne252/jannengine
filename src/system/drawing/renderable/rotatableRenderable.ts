@@ -1,15 +1,29 @@
 import {BaseRenderable} from './baseRenderable';
-import Color from './../component/color';
+import Color from '../../component/color';
 /**
  * Represents Renderable that can only be rotated by rotating the canvas context.
  */
 export abstract class RotatableRenderable extends BaseRenderable
 {
+    private _applyRotationTransform = false;
+
+    private _rotation : number;
     /**
      * The rotation of the Renderable.
      */
-    public rotation:number = 0;
-
+    public get rotation() : number 
+    {
+        return this._rotation;
+    }
+    /**
+     * The rotation of the Renderable.
+     */
+    public set rotation(value : number) 
+    {
+        this._rotation = value;
+        this._applyRotationTransform = this._rotation !== 0;
+    }
+    
     /**
      * Creates a new instance of RotatableRenderable.
      * @param x The x component of the position.
@@ -29,10 +43,13 @@ export abstract class RotatableRenderable extends BaseRenderable
     {
         super.beginRender(ctx);
 
-        ctx.save();
-        ctx.translate(this._position.x, this._position.y);
-        ctx.rotate(this.rotation);
-        ctx.translate(-this._position.x, -this._position.y);
+        if (this._applyRotationTransform)
+        {
+            ctx.save();
+            ctx.translate(this._position.x, this._position.y);
+            ctx.rotate(this.rotation);
+            ctx.translate(-this._position.x, -this._position.y);
+        }
     }
     /**
      * Finalizes the rendering process.
@@ -42,6 +59,9 @@ export abstract class RotatableRenderable extends BaseRenderable
     {
         super.endRender(ctx);
 
-        ctx.restore();
+        if (this._applyRotationTransform)
+        {
+            ctx.restore();
+        }
     }
 }

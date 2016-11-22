@@ -181,5 +181,32 @@ function _minOrMax<T>(min:boolean, selector:(o:T) => number, items:T[]):number
     
     return result;
 }
+/**
+ * Checks if a polygon (an array of {x, y} objects) contains a position ({x, y} object).
+ * @param vertices The array of {x, y} objects that form the polygon.
+ * @param vector The position to check.
+ * Returns true if the position is inside the polygon.
+ */
+export function polygon_intersects(vertices: {x: number, y: number}[], vector: {x: number, y: number}): boolean
+{
+    // ray-casting algorithm based on
+    // http://www.ecse.rpi.edu/Homepages/wrf/Research/Short_Notes/pnpoly.html
+
+    var x = vector.x, y = vector.y;
+    
+    var inside = false;
+
+    for (var i = 0, j = vertices.length - 1; i < vertices.length; j = i++)
+    {
+        var xi = vertices[i].x, yi = vertices[i].y;
+        var xj = vertices[j].x, yj = vertices[j].y;
+        
+        var intersect = ((yi > y) != (yj > y))
+            && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+        if (intersect) inside = !inside;
+    }
+    
+    return inside;
+}
 
 export const TWO_PI = 6.28318530718;

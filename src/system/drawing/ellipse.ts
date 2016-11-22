@@ -1,4 +1,4 @@
-import {BaseRenderable} from './baseRenderable';
+import {BaseRenderable} from './renderable/baseRenderable';
 import Vector2D from '../component/vector2d';
 import Size from '../component/size';
 import Color from '../component/color';

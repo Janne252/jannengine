@@ -4,21 +4,77 @@ import Random from '../component/random';
  * Represents a 32-bit RGB color with alpha (transparency) component.
  */
 export default class Color
-{
-    /**
-     * The red component of the color.
-     */
-    public red:number = 0;
-    /**
-     * The green component of the color.
-     */
-    public green:number = 0;
-    /**
-     * The blue component of the color.
-     */
-    public blue:number = 0;
-    public alpha:number = 1;
+{   
+    private _red : number;
+    private _green : number;
+    private _blue : number;
+    private _alpha : number;
 
+    /**
+     * CSS representation of this color, e.g. rgba(255, 255, 255, 1).
+     */
+    public cssString: string = '';
+    /**
+     * The red component of the RGB color, 0..255.
+     */
+    public get red() : number 
+    {
+        return this._red;
+    }
+    /**
+     * The red component of the RGB color, 0..255.
+     */
+    public set red(value : number) 
+    {
+        this._red = value;
+        this.update();
+    }
+    /**
+     * The green component of the RGB color, 0..255.
+     */
+    public get green() : number 
+    {
+        return this._green;
+    }
+    /**
+     * The green component of the RGB color, 0..255.
+     */
+    public set green(value : number) 
+    {
+        this._green = value;
+        this.update();
+    }
+    /**
+     * The blue component of the RGB color, 0..255.
+     */
+    public get blue() : number 
+    {
+        return this._blue;
+    }
+    /**
+     * The blue component of the RGB color, 0..255.
+     */
+    public set blue(value : number) 
+    {
+        this._blue = value;
+        this.update();
+    }
+    /**
+     * The alpha component of the RGB color, 0..1.
+     */
+    public get alpha() : number 
+    {
+        return this._alpha;
+    }
+    /**
+     * The alpha component of the RGB color, 0..1.
+     */
+    public set alpha(value : number) 
+    {
+        this._alpha = value;
+        this.update();
+    }
+    
     /**
      * Creates a new instance of Color.
      */
@@ -46,29 +102,35 @@ export default class Color
     {
         if (rOrColor instanceof Color)
         {
-            this.red = rOrColor.red;
-            this.green = rOrColor.green;
-            this.blue = rOrColor.blue;
-            this.alpha = rOrColor.alpha;
+            this._red = rOrColor.red;
+            this._green = rOrColor.green;
+            this._blue = rOrColor.blue;
+            this._alpha = rOrColor.alpha;
         }
         else
         {
             let r = rOrColor;
 
-            this.red = r !== undefined ? r : 0;
-            this.green = g !== undefined ? g : 0;
-            this.blue = b !== undefined ? b : 0;
-            this.alpha = alpha !== undefined ? alpha : 1;
+            this._red = r !== undefined ? r : 0;
+            this._green = g !== undefined ? g : 0;
+            this._blue = b !== undefined ? b : 0;
+            this._alpha = alpha !== undefined ? alpha : 1;
         }
+
+        this.update();
     }
 
+    public update():void
+    {
+        this.cssString = `rgba(${this.red}, ${this.green}, ${this.blue}, ${this.alpha})`;
+    }
     /**
      * Converts the Color to a CSS rgba(red, green, blue, alpha) string.
      * Returns the result string.
      */
     public toCSS():string
     {
-        return `rgba(${this.red}, ${this.green}, ${this.blue}, ${this.alpha})`;
+        return this.cssString;
     }
     /**
      * Converts the Color to a CSS rgba(red, green, blue, alpha) string.
