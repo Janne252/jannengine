@@ -3,17 +3,33 @@ import Vector2D from '../component/vector2d';
 import Size from '../component/size';
 import Color from '../component/color';
 
+/**
+ * Represents a circle.
+ */
 export default class Circle extends BaseRenderable
 {
+    /**
+     * The radius of the circle.
+     */
     public radius:number = 0;
-
+    /**
+     * Creates a new instance of Circle.
+     * @param x The x component of the position vector.
+     * @param y The y component of the position vector.
+     * @param radius The radius of the cirlcle.
+     * @param fillStyle Color used as the CanvasRenderingContext2D.fillStyle.
+     * @param strokeStyle Color used as the CanvasRenderingContext2D.strokeStyle.
+     */
     constructor(x:number = 0, y:number = 0, radius:number = 0, fillStyle:Color = Color.black, strokeStyle:Color = Color.white)
     {
         super(x, y, fillStyle, strokeStyle);
 
         this.radius = radius;
     }
-
+    /**
+     * Renders the Circle.
+     * @param ctx CanvasRenderingContext2D used to render.
+     */
     public render(ctx:CanvasRenderingContext2D):void
     {
         this.beginRender(ctx);
@@ -22,7 +38,11 @@ export default class Circle extends BaseRenderable
         
         this.endRender(ctx);
     }
-
+    /**
+     * Inspects if a position is inside of a Circle.
+     * @param position The position to check against.
+     * Returns true if the position is inside the Circle.
+     */
     public intersects(position:Vector2D):boolean
     {
         //(x-center_x)^2 + (y - center_y)^2 < radius^2

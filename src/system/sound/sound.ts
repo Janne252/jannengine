@@ -19,7 +19,6 @@ export default class Sound
     {
         return this._audioPlayers.length;
     }
-
     /**
      * Whether or not there is at least one active channel playing.
      */
@@ -27,7 +26,6 @@ export default class Sound
     {
         return this.count > 0;
     }
-
     /**
      * URL to the audio source file.
      */
@@ -35,7 +33,6 @@ export default class Sound
     {
         return this._url;
     }
-
     /**
      * Volume used to play the sound, between 0.0 and 1.0.
      */
@@ -43,7 +40,6 @@ export default class Sound
     {
         return this._volume;
     }
-
     /**
      * Volume used to play the sound, between 0.0 and 1.0.
      * @param value The value to set the volume to.
@@ -53,17 +49,14 @@ export default class Sound
         this._volume = value;
         this._updateVolume();
     }
-
     /**
      * Maximum number of channels (instances) the sound can play at the same time.
      */
     public maxChannels:number = 32;
-
     /**
      * Triggered when the audio file has finished loading and can be played.
      */
     public onLoaded:SoundOnLoadedCallback = function(e:Event) {}
-
     /**
      * Whether or not the audio file is available for playing.
      */
@@ -71,7 +64,6 @@ export default class Sound
     {
         return this._isLoaded;
     }
-
     /**
      * Creates a new instance of Sound.
      * @param url Url to the audio source file. 
@@ -82,7 +74,6 @@ export default class Sound
         this._initialAudioPlayer = new Audio(this.url);
         this._initialAudioPlayer.addEventListener('canplaythrough', this._canPlayThrough);
     }
-
     /**
      * Reacts to the initial audio player canplaythrough event.
      * @param e The event.
@@ -92,7 +83,6 @@ export default class Sound
         this._isLoaded = true;
         this.onLoaded(e);
     }
-
     /**
      * Plays the sound if the maximum number of channels is not reached.
      * Returns true if the sound was played.
@@ -117,7 +107,6 @@ export default class Sound
             return false;
         }
     }
-
     /**
      * Reacts to the ended event of Audio element.
      * @param e The event object.
@@ -126,7 +115,6 @@ export default class Sound
     {
         array_remove(this._audioPlayers, e.srcElement);
     }
-
     /**
      * Updates the volume to the all currently existing audio players.
      */
