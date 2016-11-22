@@ -1,0 +1,31 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE project PUBLIC "-//audacityproject-1.3.0//DTD//EN" "http://audacity.sourceforge.net/xml/audacityproject-1.3.0.dtd" >
+<project xmlns="http://audacity.sourceforge.net/xml/" projname="damage_01_data" version="1.3.0" audacityversion="2.1.2" sel0="4.9081179138" sel1="5.2738321995" vpos="0" h="2.6673922902" zoom="172.2656250000" rate="44100.0" snapto="off" selectionformat="hh:mm:ss + milliseconds" frequencyformat="Hz" bandwidthformat="octaves">
+	<tags/>
+	<wavetrack name="Audioraita" channel="0" linked="1" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="44100" gain="1.0" pan="0.0">
+		<waveclip offset="0.00000000">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="348500">
+				<waveblock start="0">
+					<simpleblockfile filename="e00001b8.au" len="174250" min="-0.02156" max="0.018778" rms="0.002568"/>
+				</waveblock>
+				<waveblock start="174250">
+					<simpleblockfile filename="e000099f.au" len="174250" min="-0.364359" max="0.620169" rms="0.008086"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="Audioraita" channel="1" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="44100" gain="1.0" pan="0.0">
+		<waveclip offset="0.00000000">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="348500">
+				<waveblock start="0">
+					<simpleblockfile filename="e0000145.au" len="174250" min="-0.021444" max="0.018389" rms="0.002542"/>
+				</waveblock>
+				<waveblock start="174250">
+					<simpleblockfile filename="e00000cc.au" len="174250" min="-0.361173" max="0.616179" rms="0.008019"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+</project>

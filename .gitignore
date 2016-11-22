@@ -1,4 +1,3 @@
-.vscode/
 js/out
-sound_source/
+sound/source
 .htaccess
